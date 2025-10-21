@@ -73,44 +73,6 @@ if exist "flibustier_tweaks.bat" (
     echo ✓ Базовые твики Flibustier созданы и применены
 )
 
-:: 5. ТВИКИ ОТ REVIOS
-echo [5/9] Применение твиков ReviOS...
-if exist "revios_tweaks.bat" (
-    call revios_tweaks.bat
-    echo ✓ Твики ReviOS применены
-) else (
-    echo ✗ Файл revios_tweaks.bat не найден
-    echo Создание базовых твиков ReviOS...
-    
-    :: Отключение индексации поиска
-    sc config "WSearch" start= disabled >nul
-    sc stop "WSearch" >nul
-    
-    :: Отключение ненужных служб
-    sc config "XboxGipSvc" start= disabled >nul
-    sc config "XboxNetApiSvc" start= disabled >nul
-    
-    echo ✓ Базовые твики ReviOS созданы и применены
-)
-
-:: 6. ТВИКИ ОТ ATLASOS
-echo [6/9] Применение твиков AtlasOS...
-if exist "atlasos_tweaks.bat" (
-    call atlasos_tweaks.bat
-    echo ✓ Твики AtlasOS применены
-) else (
-    echo ✗ Файл atlasos_tweaks.bat не найден
-    echo Создание базовых твиков AtlasOS...
-    
-    :: Оптимизация питания для производительности
-    powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c >nul
-    
-    :: Отключение визуальных эффектов
-    reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v VisualFXSetting /t REG_DWORD /d 2 /f >nul
-    
-    echo ✓ Базовые твики AtlasOS созданы и применены
-)
-
 :: 7. ТВИКИ ОТ IGROMANOFF
 echo [7/9] Применение твиков Igromanoff...
 if exist "igromanoff_tweaks.bat" (
@@ -147,6 +109,26 @@ if exist "ancels_tweaks.bat" (
     ipconfig /flushdns >nul
     
     echo ✓ Базовые твики Ancels созданы и применены
+)
+
+:: 5. ТВИКИ ОТ REVIOS
+echo [5/9] Применение твиков ReviOS...
+if exist "revios_tweaks.bat" (
+    call revios_tweaks.bat
+    echo ✓ Твики ReviOS применены
+) else (
+    echo ✗ Файл revios_tweaks.bat не найден
+    echo Создание базовых твиков ReviOS...
+    
+    :: Отключение индексации поиска
+    sc config "WSearch" start= disabled >nul
+    sc stop "WSearch" >nul
+    
+    :: Отключение ненужных служб
+    sc config "XboxGipSvc" start= disabled >nul
+    sc config "XboxNetApiSvc" start= disabled >nul
+    
+    echo ✓ Базовые твики ReviOS созданы и применены
 )
 
 :: 9. УСТАНОВКА EXTREME
@@ -207,5 +189,6 @@ echo ✓ Установка Extreme
 echo.
 echo Перезагрузите компьютер для применения всех изменений.
 echo.
+
 
 pause
