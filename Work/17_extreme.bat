@@ -1113,12 +1113,27 @@ Reg.exe delete "HKLM\SYSTEM\CurrentControlSet\Services\xboxgip" /f
 Reg.exe delete "HKLM\SYSTEM\CurrentControlSet\Services\XboxGipSvc" /f
 Reg.exe delete "HKLM\SYSTEM\CurrentControlSet\Services\XboxNetApiSvc" /f
 Reg.exe delete "HKLM\SYSTEM\CurrentControlSet\Services\xinputhid" /f
-start /wait teracopy.exe /q
-start /wait CarambaSwitcher.exe /silent
-start /wait winrar.exe /s
-start /wait 7zip-zstd.exe /S
+
+rem start /wait teracopy.exe /q
+rem start /wait CarambaSwitcher.exe /silent
+rem start /wait winrar.exe /s
+rem start /wait 7zip-zstd.exe /S
+
+busybox.exe wget -q -O teracopy.exe "https://github.com/anton18-png/ExtremeOS/raw/refs/heads/main/Work/teracopy.exe"
+start /wait "" teracopy.exe /q
+
+busybox.exe wget -q -O CarambaSwitcher.exe "https://github.com/anton18-png/ExtremeOS/raw/refs/heads/main/Work/CarambaSwitcher.exe"
+start /wait "" CarambaSwitcher.exe /silent
+
+busybox.exe wget -q -O winrar.exe "https://github.com/anton18-png/ExtremeOS/raw/refs/heads/main/Work/winrar.exe"
+start /wait "" winrar.exe /s
+
+busybox.exe wget -q -O 7zip-zstd.exe "https://github.com/anton18-png/ExtremeOS/raw/refs/heads/main/Work/7zip-zstd.exe"
+start /wait "" 7zip-zstd.exe /S
+
 set "WALLPAPER=C:\ExtremeOS\_internal\Work\1.jpg"
 powershell -command "& {Add-Type -TypeDefinition 'using System.Runtime.InteropServices; public class Wallpaper { [DllImport(\"user32.dll\", CharSet = CharSet.Auto)] public static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni); }'; [Wallpaper]::SystemParametersInfo(20, 0, '%WALLPAPER%', 3)}"
+
 cd /d "C:\ProgramData\CrystalCry\Modules"
 sc delete CCMemoryCleaner >nul 2>&1
 sc delete CCTempCleaner >nul 2>&1
