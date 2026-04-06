@@ -458,6 +458,23 @@
 
 ---
 
+## 🔜 ПЛАНИРУЕТСЯ В СЛЕДУЮЩИХ ВЕРСИЯХ:
+
+<img width="1402" height="748" alt="image" src="https://github.com/user-attachments/assets/1b8bbf56-e200-48bc-bab5-4d4645b31562" />
+
+### 🌐 Дополнительные браузеры
+
+### 📦 Новые компоненты:
+- **Activated WinRAR** — архиватор (активированная версия)
+- **7-Zip Zstandard** — архиватор с поддержкой формата Zstandard
+
+### 🎨 Визуальные улучшения:
+- Обновление иконок для Проводника Windows
+
+### 🔧 Расширение совместимости:
+- Поддержка **AtlasOS**
+- Поддержка **ReviOS**
+
 ## 🙏 БЛАГОДАРНОСТИ
 
 - [WinClick](https://github.com/MartyFiles/WinClick)
