@@ -1,7 +1,6 @@
 <div align="center">
 
-### <img width="128px" src="https://i.ibb.co/0yM1WFqb/ai6k4-ov2am-001-copy.png" /> 
-<strong>ExtremeOS Wizard</strong> — универсальный установщик для настройки и оптимизации Windows 11
+<h1><strong>ExtremeOS Wizard</strong> — универсальный установщик для настройки и оптимизации Windows 11</h1>
 
 ![photo_2026-04-05_08-23-53](https://github.com/user-attachments/assets/bac0a373-dc88-4305-95e9-225e556cc527)
 
