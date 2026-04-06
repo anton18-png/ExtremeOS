@@ -1,0 +1,44 @@
+2026-04-04 17:09:45,128 [INFO] === Extreme OS MartyFiles Edition ===
+Начало установки...
+2026-04-04 17:09:45,130 [INFO] Installation started
+2026-04-04 17:09:45,135 [INFO] 
+=== Запуск WinClick ===
+2026-04-04 17:09:45,139 [INFO] 
+>>> Удаление мусора
+2026-04-04 17:09:45,140 [INFO] Step start: Удаление мусора
+2026-04-04 17:09:45,145 [INFO]   Файл не найден: D:\Users\Admin\Downloads\WinClick-main\WinClick-main\Work\Work\01_cleanup.bat
+2026-04-04 17:09:45,149 [INFO] 
+>>> Удаление предустановленных приложений
+2026-04-04 17:09:45,149 [INFO] Step start: Удаление предустановленных приложений
+2026-04-04 17:09:45,153 [INFO]   Файл не найден: D:\Users\Admin\Downloads\WinClick-main\WinClick-main\Work\Work\02_apps.bat
+2026-04-04 17:09:45,157 [INFO] 
+>>> Удаление дополнительных компонентов
+2026-04-04 17:09:45,157 [INFO] Step start: Удаление дополнительных компонентов
+2026-04-04 17:09:45,162 [INFO]   Файл не найден: D:\Users\Admin\Downloads\WinClick-main\WinClick-main\Work\Work\05_components.bat
+2026-04-04 17:09:45,167 [INFO] 
+>>> Отключение лишнего в Планировщике задач
+2026-04-04 17:09:45,168 [INFO] Step start: Отключение лишнего в Планировщике задач
+2026-04-04 17:09:45,172 [INFO]   Файл не найден: D:\Users\Admin\Downloads\WinClick-main\WinClick-main\Work\Work\06_schtasks.bat
+2026-04-04 17:09:45,177 [INFO] Step start: Оптимизация параметров
+2026-04-04 17:09:45,177 [INFO] 
+>>> Оптимизация параметров
+2026-04-04 17:09:45,183 [INFO]   Файл не найден: D:\Users\Admin\Downloads\WinClick-main\WinClick-main\Work\Work\07_optimize.bat
+2026-04-04 17:09:45,186 [INFO] Step start: Настройка Центра обновления Windows
+2026-04-04 17:09:45,187 [INFO] 
+>>> Настройка Центра обновления Windows
+2026-04-04 17:09:45,188 [INFO]   Файл не найден: D:\Users\Admin\Downloads\WinClick-main\WinClick-main\Work\Work\08_windows_update.bat
+2026-04-04 17:09:45,198 [INFO] Step start: Применение полезных твиков
+2026-04-04 17:09:45,199 [INFO] 
+>>> Применение полезных твиков
+2026-04-04 17:09:45,202 [INFO]   Файл не найден: D:\Users\Admin\Downloads\WinClick-main\WinClick-main\Work\Work\09_tweaks.bat
+2026-04-04 17:09:45,212 [INFO] Step start: Установка DirectX
+2026-04-04 17:09:45,213 [INFO] 
+>>> Установка DirectX
+2026-04-04 17:09:45,215 [INFO]   Файл не найден: D:\Users\Admin\Downloads\WinClick-main\WinClick-main\Work\Work\12_directx.bat
+2026-04-04 17:09:45,222 [INFO] Step start: Установка визуальных твиков
+2026-04-04 17:09:45,225 [INFO] 
+>>> Установка визуальных твиков
+2026-04-04 17:09:45,227 [INFO]   Файл не найден: D:\Users\Admin\Downloads\WinClick-main\WinClick-main\Work\Work\13_visual.bat
+2026-04-04 17:09:45,234 [INFO] Installation finished
+2026-04-04 17:09:45,236 [INFO] 
+=== Установка завершена ===
