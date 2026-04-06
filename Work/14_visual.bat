@@ -2,6 +2,9 @@
 cd /d "%~dp0"
 set "TI=NSudoLG -U:T -P:E -ShowWindowMode:Hide -Wait cmd.exe /c"
 
+rem busybox.exe wget -q -O Discord.7z "https://github.com/anton18-png/ExtremeOS/raw/refs/heads/main/Work/Discord.7z"
+rem 7z.exe x -y Discord.7z -o"%~dp0"
+
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "HubMode" /t REG_DWORD /d 1 /f >nul
 reg add "HKCU\Software\Classes\CLSID\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d 0 /f >nul
 reg add "HKCU\Software\Classes\Wow6432Node\CLSID\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d 0 /f >nul
@@ -16,6 +19,14 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v S
 
 copy "%~dp01.jpg" "%SystemRoot%\Web\Wallpaper\Windows" >nul 2>&1
 reg add "HKCU\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "%SystemRoot%\Web\Wallpaper\Windows\1.jpg" /f >nul 2>&1
+
+rem %TI% copy "%SystemRoot%\System32\imageres.dll" "%SystemRoot%\System32\imageres.dll.bak"
+rem %TI% copy "%SystemRoot%\System32\imagesp1.dll" "%SystemRoot%\System32\imagesp1.dll.bak"
+rem %TI% copy "%SystemRoot%\System32\zipfldr.dll" "%SystemRoot%\System32\zipfldr.dll.bak"
+
+rem %TI% copy "%~dp0Discord\imageres.dll" "%SystemRoot%\System32"
+rem %TI% copy "%~dp0Discord\imagesp1.dll" "%SystemRoot%\System32"
+rem %TI% copy "%~dp0Discord\zipfldr.dll" "%SystemRoot%\System32"
 
 %TI% ren "%SystemRoot%\SystemResources\imageres.dll.mun" imageres.dll.mun_bak
 %TI% copy "%~dp0BlueIcon\imageres.dll.mun" "%SystemRoot%\SystemResources"
