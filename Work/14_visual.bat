@@ -17,8 +17,8 @@ reg add "HKCU\Software\Classes\CLSID\{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}" /v 
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v AppsUseLightTheme /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v SystemUsesLightTheme /t REG_DWORD /d 0 /f >nul 2>&1
 
-copy "%~dp01.jpg" "%SystemRoot%\Web\Wallpaper\Windows" >nul 2>&1
-reg add "HKCU\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "%SystemRoot%\Web\Wallpaper\Windows\1.jpg" /f >nul 2>&1
+rem copy "%~dp01.jpg" "%SystemRoot%\Web\Wallpaper\Windows" >nul 2>&1
+rem reg add "HKCU\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "%SystemRoot%\Web\Wallpaper\Windows\1.jpg" /f >nul 2>&1
 
 %TI% copy "%SystemRoot%\System32\imageres.dll" "%SystemRoot%\System32\imageres.dll.bak"
 %TI% copy "%SystemRoot%\System32\imagesp1.dll" "%SystemRoot%\System32\imagesp1.dll.bak"
