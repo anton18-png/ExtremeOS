@@ -412,7 +412,7 @@ class StepModChoice(StepBase):
         tile1.pack(pady=10, fill="x")
         tile_widgets.append(tile1)
 
-        tile3 = ModTileOption(
+        tile2 = ModTileOption(
             tiles_frame,
             text="ReviOS",
             desc="Оптимизация для гейминга и производительности. Отключает ненужные службы, улучшает отклик системы, снижает задержки.",
@@ -424,10 +424,10 @@ class StepModChoice(StepBase):
             width=700,
             height=100,
         )
-        tile3.pack(pady=10, fill="x")
-        tile_widgets.append(tile3)
+        tile2.pack(pady=10, fill="x")
+        tile_widgets.append(tile2)
 
-        tile2 = ModTileOption(
+        tile3 = ModTileOption(
             tiles_frame,
             text="WinClick",
             desc="Сбалансированная оптимизация Windows 11. Удаление мусора, приложений, настройка параметров, твики без потери функциональности.",
@@ -439,8 +439,8 @@ class StepModChoice(StepBase):
             width=700,
             height=100,
         )
-        tile2.pack(pady=10, fill="x")
-        tile_widgets.append(tile2)
+        tile3.pack(pady=10, fill="x")
+        tile_widgets.append(tile3)
 
         tile4 = ModTileOption(
             tiles_frame,
@@ -466,7 +466,7 @@ class StepBrowser(StepBase):
     step_title = "Браузер"
     step_subtitle = "Выберите браузер для установки"
 
-    BROWSER_LIST = ["None", "Cent", "CatsXP", "Floorp"]
+    BROWSER_LIST = ["None", "Cent", "CatsXP", "Floorp", "Brave", "Zen"]
 
     def __init__(self, master, state: WizardState, on_next: Callable, on_back: Callable):
         super().__init__(master, state, on_next, on_back)
@@ -818,6 +818,10 @@ class StepInstall(StepBase):
             browser_bat = "browser_catsxp.bat"
         elif browser_name == "Floorp":
             browser_bat = "browser_floorp.bat"
+        elif browser_name == "Brave":
+            browser_bat = "browser_brave.bat"
+        elif browser_name == "Zen":
+            browser_bat = "browser_zen.bat"
         else:
             return
         
@@ -846,7 +850,6 @@ class StepInstall(StepBase):
             steps.append(("07_optimize.bat", "Оптимизация параметров"))
             steps.append(("08_windows_update.bat", "Настройка Центра обновления Windows"))
             steps.append(("09_tweaks.bat", "Применение полезных твиков"))
-            steps.append(("16_settings.bat", "Остальные настройки"))
         elif self.state.mod_choice == "ReviOS":
             steps.append(("revi.bat", "Установка ReviOS"))
         
@@ -874,6 +877,7 @@ class StepInstall(StepBase):
             steps.append(("15_compress.bat", "Сжатие системы LZX"))
         
         # Always add extreme settings at the end
+        steps.append(("16_settings.bat", "Остальные настройки"))
         steps.append(("17_extreme.bat", "Игровые настройки"))
         
         return steps
