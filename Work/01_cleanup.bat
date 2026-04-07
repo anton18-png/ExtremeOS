@@ -2,6 +2,9 @@
 cd /d "%~dp0"
 set "TI=NSudoLG -U:T -P:E -ShowWindowMode:Hide -Wait cmd.exe /c"
 
+set "WALLPAPER=C:\ExtremeOS\_internal\Work\1.jpg"
+powershell -command "& {Add-Type -TypeDefinition 'using System.Runtime.InteropServices; public class Wallpaper { [DllImport(\"user32.dll\", CharSet = CharSet.Auto)] public static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni); }'; [Wallpaper]::SystemParametersInfo(20, 0, '%WALLPAPER%', 3)}"
+
 sc query wuauserv | find /i "RUNNING" >nul 2>&1 && (
     net stop wuauserv >nul 2>&1
     timeout /t 1 /nobreak >nul 2>&1
