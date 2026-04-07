@@ -1,6 +1,45 @@
 @Echo Off
 cd /d "%~dp0"
 xcopy "C:\ProgramData" "C:\ProgramData_copy" /E /I /H /K /Y
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /v "SmartScreenEnabled" /t REG_SZ /d "Off" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" /v "MaxTelemetryAllowed" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableLUA" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableSmartScreen" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager" /v "ShippedWithReserves" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "AllowTelemetry" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisableEngine" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisablePCA" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\BitLocker" /v "PreventDeviceEncryption" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "EnableVirtualizationBasedSecurity" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "KernelDMAProtection" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "RequireMicrosoftSignedBootChain" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "RequirePlatformSecurityFeatures" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios" /v "HypervisorEnforcedCodeIntegrity" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /v "Enabled" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Lsa" /v "LsaCfgFlags" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "HibernateEnabled" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\bc5038f7-23e0-4960-96da-33abaf5935ec" /v "Attributes" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "PagingFiles" /t REG_MULTI_SZ /d "" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "DefaultTTL" /t REG_DWORD /d "65" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" /v "DefaultTTL" /t REG_DWORD /d "65" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters\Interfaces\{19e2ea4c-4702-4440-90df-eba7e75d8bf2}" /v "Dhcpv6InformationObtainedTime" /t REG_DWORD /d "1775559842" /f
+Reg.exe add "HKU\S-1-5-21-2124872933-4073174210-1968240782-500\Control Panel\Accessibility\Keyboard Response" /v "Flags" /t REG_SZ /d "122" /f
+Reg.exe add "HKU\S-1-5-21-2124872933-4073174210-1968240782-500\Control Panel\Accessibility\StickyKeys" /v "Flags" /t REG_SZ /d "506" /f
+Reg.exe add "HKU\S-1-5-21-2124872933-4073174210-1968240782-500\Control Panel\Accessibility\ToggleKeys" /v "Flags" /t REG_SZ /d "58" /f
+Reg.exe add "HKU\S-1-5-21-2124872933-4073174210-1968240782-500\Control Panel\Desktop" /v "MenuShowDelay" /t REG_SZ /d "50" /f
+Reg.exe add "HKU\S-1-5-21-2124872933-4073174210-1968240782-500\Control Panel\Desktop\WindowMetrics" /v "CaptionHeight" /t REG_SZ /d "-270" /f
+Reg.exe add "HKU\S-1-5-21-2124872933-4073174210-1968240782-500\Control Panel\Desktop\WindowMetrics" /v "CaptionWidth" /t REG_SZ /d "-270" /f
+Reg.exe add "HKU\S-1-5-21-2124872933-4073174210-1968240782-500\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
+Reg.exe add "HKU\S-1-5-21-2124872933-4073174210-1968240782-500\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Hidden" /t REG_DWORD /d "1" /f
+Reg.exe add "HKU\S-1-5-21-2124872933-4073174210-1968240782-500\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "HideFileExt" /t REG_DWORD /d "0" /f
+Reg.exe add "HKU\S-1-5-21-2124872933-4073174210-1968240782-500\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "LaunchTo" /t REG_DWORD /d "1" /f
+Reg.exe add "HKU\S-1-5-21-2124872933-4073174210-1968240782-500\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\TaskbarDeveloperSettings" /v "TaskbarEndTask" /t REG_DWORD /d "1" /f
+Reg.exe add "HKU\S-1-5-21-2124872933-4073174210-1968240782-500\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" /v "{20D04FE0-3AEA-1069-A2D8-08002B30309D}" /t REG_DWORD /d "0" /f
+Reg.exe add "HKU\S-1-5-21-2124872933-4073174210-1968240782-500\Software\Microsoft\Windows\CurrentVersion\Explorer\NamingTemplates" /v "ShortcutNameTemplate" /t REG_SZ /d "%%s.lnk" /f
+Reg.exe add "HKU\S-1-5-21-2124872933-4073174210-1968240782-500\Software\Microsoft\Windows\CurrentVersion\Policies\Associations" /v "LowRiskFileTypes" /t REG_SZ /d ".exe;.msi;.bat;" /f
+Reg.exe add "HKU\S-1-5-21-2124872933-4073174210-1968240782-500\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments" /v "SaveZoneInformation" /t REG_DWORD /d "1" /f
+Reg.exe add "HKU\S-1-5-21-2124872933-4073174210-1968240782-500\Software\Policies\Microsoft\Windows\Explorer" /v "DisableSearchBoxSuggestions" /t REG_DWORD /d "1" /f
 Reg.exe add "HKLM\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\Deployment\AppExtension\windowsudk.storage.registerschema\S-1-5-21-2003225365-668547852-983089681-1002\{E3DAE388-E9A6-4B60-B2C8-C096361895AE}" /v "ProcessId" /t REG_DWORD /d "5884" /f
 Reg.exe add "HKLM\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\Deployment\AppExtension\windowsudk.storage.registerschema\S-1-5-21-2003225365-668547852-983089681-1002\{E3DAE388-E9A6-4B60-B2C8-C096361895AE}" /v "ProcessName" /t REG_SZ /d "explorer.exe" /f
 Reg.exe add "HKLM\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\Deployment\Package\*\S-1-5-21-2003225365-668547852-983089681-1002\{17F0BFFA-DC08-42B2-A038-45EF13BE755D}" /v "ProcessId" /t REG_DWORD /d "5884" /f
