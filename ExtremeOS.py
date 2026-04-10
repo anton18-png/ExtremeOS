@@ -144,7 +144,7 @@ def run_bat_file(bat_path: str, log_callback: Callable) -> Tuple[int, str]:
 
 class WizardState:
     def __init__(self):
-        self.mod_choice: str = "None"  # "AtlasOS", "WinClick", "None"
+        self.mod_choice: str = "None"  # "AtlasOS", "ReviOS", "WinClick", "None"
         self.browser_choice: str = "None"
         self.remove_edge: bool = True
         self.remove_defender: bool = True
@@ -154,6 +154,7 @@ class WizardState:
         self.install_drivers: bool = True
         self.compress_system: bool = True
         self.visual_effects: bool = True
+        self.performance_profile: str = "balanced"  # "power_saving", "balanced", "extreme"
 
 
 class StepBase(ctk.CTkFrame):
@@ -337,6 +338,97 @@ class ModTileOption(ctk.CTkFrame):
             self.configure(fg_color=self._bg_normal, border_width=1, border_color=self._border_normal)
 
 
+class ProfileTileOption(ctk.CTkFrame):
+    def __init__(
+        self,
+        master,
+        text: str,
+        desc: str = "",
+        icon_key: Optional[str] = None,
+        mode: str = "radio",
+        variable=None,
+        value=None,
+        on_change: Optional[Callable] = None,
+        width: int = 320,
+        height: int = 120,
+    ):
+        super().__init__(master, corner_radius=16, width=width, height=height)
+        self.pack_propagate(False)
+
+        self._mode = mode
+        self._variable = variable
+        self._value = value
+        self._on_change = on_change
+
+        self._icon = resource_icon(icon_key or "")
+        self._bg_normal = "#15151A"
+        self._bg_selected = "#1F2633"
+        self._border_normal = "#23232A"
+        self._border_selected = "#2A72FF"
+
+        self.configure(fg_color=self._bg_normal, border_width=1, border_color=self._border_normal)
+
+        inner = ctk.CTkFrame(self, fg_color="transparent")
+        inner.pack(fill="both", expand=True, padx=12, pady=12)
+
+        icon_holder = ctk.CTkFrame(inner, fg_color="transparent", width=50)
+        icon_holder.pack(side="left", fill="y", padx=(0, 12))
+        icon_holder.pack_propagate(False)
+        icon_label(icon_holder, self._icon).pack(expand=True)
+
+        text_frame = ctk.CTkFrame(inner, fg_color="transparent")
+        text_frame.pack(side="left", fill="both", expand=True)
+        
+        self._lbl_title = ctk.CTkLabel(
+            text_frame,
+            text=text,
+            font=ctk.CTkFont(size=14, weight="bold"),
+            anchor="w",
+        )
+        self._lbl_title.pack(anchor="w", pady=(0, 4))
+        
+        self._lbl_desc = ctk.CTkLabel(
+            text_frame,
+            text=desc,
+            font=ctk.CTkFont(size=11),
+            text_color=("#6E6E6E", "#B0B0B0"),
+            anchor="w",
+            wraplength=200,
+            justify="left",
+        )
+        self._lbl_desc.pack(anchor="w")
+
+        for w in (self, inner, icon_holder, text_frame, self._lbl_title, self._lbl_desc):
+            w.bind("<Button-1>", self._clicked)
+
+        self.refresh()
+
+    def _clicked(self, _evt=None):
+        if self._mode == "radio":
+            if self._variable is not None and self._value is not None:
+                self._variable.set(self._value)
+        elif self._mode == "check":
+            if self._variable is not None:
+                self._variable.set(not bool(self._variable.get()))
+        self.refresh()
+        if self._on_change:
+            self._on_change()
+
+    def refresh(self):
+        selected = False
+        if self._mode == "radio":
+            if self._variable is not None and self._value is not None:
+                selected = str(self._variable.get()) == str(self._value)
+        elif self._mode == "check":
+            if self._variable is not None:
+                selected = bool(self._variable.get())
+
+        if selected:
+            self.configure(fg_color=self._bg_selected, border_width=2, border_color=self._border_selected)
+        else:
+            self.configure(fg_color=self._bg_normal, border_width=1, border_color=self._border_normal)
+
+
 class StepWelcome(StepBase):
     step_title = "Добро пожаловать"
     step_subtitle = "Extreme OS"
@@ -444,9 +536,8 @@ class StepModChoice(StepBase):
 
         tile4 = ModTileOption(
             tiles_frame,
-            text="Без модификации",
+            text="ExtremeOS",
             desc="Будут выполнены только дополнительные настройки (ExtremeOS)",
-            icon_key="none",
             mode="radio",
             variable=self.var,
             value="None",
@@ -476,7 +567,7 @@ class StepBrowser(StepBase):
 
         ctk.CTkLabel(
             self,
-            text="Выберите браузер для установки (или None чтобы пропустить):",
+            text="Выберите браузер для установки:",
             text_color=("#6E6E6E", "#B0B0B0"),
         ).pack(anchor="w", padx=24, pady=(0, 10))
 
@@ -660,6 +751,89 @@ class StepOptions(StepBase):
         return True, ""
 
 
+class StepPerformanceProfile(StepBase):
+    step_title = "Профиль производительности"
+    step_subtitle = "Выберите уровень оптимизации ExtremeOS"
+
+    def __init__(self, master, state: WizardState, on_next: Callable, on_back: Callable):
+        super().__init__(master, state, on_next, on_back)
+
+        title = ctk.CTkLabel(self, text="Профиль производительности", font=ctk.CTkFont(size=22, weight="bold"))
+        title.pack(anchor="w", padx=24, pady=(24, 10))
+
+        ctk.CTkLabel(
+            self,
+            text="Выберите уровень оптимизации для ExtremeOS:",
+            text_color=("#6E6E6E", "#B0B0B0"),
+        ).pack(anchor="w", padx=24, pady=(0, 10))
+
+        self.var = ctk.StringVar(value=state.performance_profile)
+
+        tiles_frame = ctk.CTkFrame(self, fg_color="transparent")
+        tiles_frame.pack(fill="both", expand=True, padx=24, pady=12)
+
+        def refresh_all():
+            for t in tile_widgets:
+                t.refresh()
+
+        tile_widgets = []
+
+        # Profile 1: Энергосберегательный
+        tile1 = ProfileTileOption(
+            tiles_frame,
+            text="Энергосберегательный",
+            desc="Минимальное энергопотребление. Отключает фоновые процессы, снижает нагрузку на ЦП. Идеально для ноутбуков.",
+            icon_key="power_saving",
+            mode="radio",
+            variable=self.var,
+            value="power_saving",
+            on_change=refresh_all,
+            width=340,
+            height=130,
+        )
+        tile1.grid(row=0, column=0, padx=15, pady=15, sticky="nsew")
+        tile_widgets.append(tile1)
+
+        # Profile 2: Идеальный
+        tile2 = ProfileTileOption(
+            tiles_frame,
+            text="Идеальный",
+            desc="Сбалансированная оптимизация. Хорошая производительность при умеренном энергопотреблении. Рекомендуется для большинства пользователей.",
+            icon_key="balanced",
+            mode="radio",
+            variable=self.var,
+            value="balanced",
+            on_change=refresh_all,
+            width=340,
+            height=130,
+        )
+        tile2.grid(row=0, column=1, padx=15, pady=15, sticky="nsew")
+        tile_widgets.append(tile2)
+
+        # Profile 3: Экстремальный
+        tile3 = ProfileTileOption(
+            tiles_frame,
+            text="Экстремальный",
+            desc="Максимальная производительность. Отключает все службы, фоновые процессы и визуальные эффекты. Только для мощных ПК!",
+            icon_key="extreme",
+            mode="radio",
+            variable=self.var,
+            value="extreme",
+            on_change=refresh_all,
+            width=340,
+            height=130,
+        )
+        tile3.grid(row=1, column=0, padx=15, pady=15, sticky="nsew")
+        tile_widgets.append(tile3)
+
+        tiles_frame.grid_columnconfigure(0, weight=1)
+        tiles_frame.grid_columnconfigure(1, weight=1)
+
+    def validate(self) -> Tuple[bool, str]:
+        self.state.performance_profile = str(self.var.get())
+        return True, ""
+
+
 class StepReview(StepBase):
     step_title = "Проверка"
     step_subtitle = "Подтвердите выбор"
@@ -684,9 +858,17 @@ class StepReview(StepBase):
             "AtlasOS": "AtlasOS (агрессивная оптимизация)", 
             "ReviOS": "ReviOS (оптимизация для гейминга)",
             "WinClick": "WinClick (сбалансированная оптимизация)",
-            "None": "Без модификации (только ExtremeOS)"
+            "None": "ExtremeOS (только дополнительные настройки)"
         }
         tasks.append(f"🎯 Основная модификация: {mod_names.get(self.state.mod_choice, self.state.mod_choice)}")
+        tasks.append("")
+        
+        profile_names = {
+            "power_saving": "Энергосберегательный",
+            "balanced": "Идеальный",
+            "extreme": "Экстремальный"
+        }
+        tasks.append(f"⚡ Профиль производительности: {profile_names.get(self.state.performance_profile, self.state.performance_profile)}")
         tasks.append("")
         
         if self.state.browser_choice != "None":
@@ -876,9 +1058,21 @@ class StepInstall(StepBase):
         if self.state.compress_system:
             steps.append(("15_compress.bat", "Сжатие системы LZX"))
         
+        # Performance profile bat files
+        profile_bat = None
+        if self.state.performance_profile == "power_saving":
+            profile_bat = "profile_power_saving.bat"
+        elif self.state.performance_profile == "balanced":
+            profile_bat = "profile_balanced.bat"
+        elif self.state.performance_profile == "extreme":
+            profile_bat = "profile_extreme.bat"
+        
+        if profile_bat:
+            steps.append((profile_bat, f"Применение профиля: {self.state.performance_profile}"))
+        
         # Always add extreme settings at the end
         steps.append(("16_settings.bat", "Остальные настройки"))
-        steps.append(("17_extreme.bat", "Игровые настройки"))
+        # steps.append(("17_extreme.bat", "Игровые настройки"))
         
         return steps
 
@@ -985,7 +1179,7 @@ class App(ctk.CTk):
         self.minsize(1400, 720)
 
         self.state_data = WizardState()
-        self.steps = [StepWelcome, StepModChoice, StepBrowser, StepOptions, StepReview, StepInstall, StepDone]
+        self.steps = [StepWelcome, StepModChoice, StepBrowser, StepOptions, StepPerformanceProfile, StepReview, StepInstall, StepDone]
         self.step_index = 0
         self.step_frame: Optional[StepBase] = None
 
